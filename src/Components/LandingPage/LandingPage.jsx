@@ -4,49 +4,13 @@ import HummingDialog from "../HummingDialog/HummingDialog";
 import { reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import {signUp, login } from "../../Redux/actions/actions";
+import { connect } from "react-redux";
 
 function LandingPage(props) {
-  const { classes, history } = props;
+  const { classes} = props;
   console.log(props);
 
-  const handleSignup = async (...args) => {
-    const [username, password, passwordConfirm, name, email] = args;
-
-    const url = "http://localhost:5000/api/v1/user/signup";
-    const newUser = {
-      name,
-      username,
-      email,
-      password,
-      passwordConfirm,
-    };
-
-    let user = await axios({
-      method: "POST",
-      url: url,
-      data: newUser,
-    });
-
-    if (user.data.status === "success") {
-      history.push("/home");
-    }
-  };
-
-  const handleLogin = async (...args) => {
-    const [username, password] = args;
-
-    const url = "http://localhost:5000/api/v1/user/login";
-
-    let user = await axios({
-      method: "POST",
-      url: url,
-      data: { username, password },
-    });
-
-    if (user.data.status === "success") {
-      history.push("/home");
-    }
-  };
 
   return (
     <div className={classes.landingPage}>
@@ -56,18 +20,15 @@ function LandingPage(props) {
         <div className={classes.buttonbox}>
         
 
-          <HummingDialog text="Sign up" signup onSubmit={handleSignup} />
-          <HummingDialog text="Login" onSubmit={handleLogin} />
+          <HummingDialog text="Sign up" signUpForm  />
+          <HummingDialog text="Login"  />
         </div>
       </div>
     </div>
   );
 }
 
-const landingPage = reduxForm({
-  form: "signUpForm",
-})(LandingPage);
 
-export default withRouter(withStyles(styles)(landingPage));
+export default withRouter(withStyles(styles)(LandingPage));
 
-// export default LandingPage;
+

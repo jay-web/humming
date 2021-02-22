@@ -8,8 +8,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import {connect } from "react-redux";
+import {signUp, login } from "../../Redux/actions/actions";
 
 import HummingTextField from "../Form/hummingTextField";
+import {withRouter } from "react-router-dom";
 
 
 
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
  function HummingDialog(props) {
   const [open, setOpen] = React.useState(false);
   
-  const {text, signup, onSubmit} = props;
+  const {text, signUpForm, history, signUp, login} = props;
   const classes = useStyles();
 
   
@@ -43,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
     setOpen(false);
     const {name, username, email, password, passwordConfirm } = props.formvalues;
 
-    onSubmit(username, password, passwordConfirm, name, email);
+    signUpForm ? signUp(username, password, passwordConfirm, name, email, history)
+          : login(username, password, history)
   }
 
   return (
@@ -57,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
         <DialogTitle id="form-dialog-title" className={classes.title}> Please fill up credentials </DialogTitle>
         <DialogContent>
         {/* <form > */}
-        <HummingTextField  signup={signup} />
+        <HummingTextField  signup={signUpForm} />
         {/* </form> */}
         </DialogContent>
         
@@ -65,8 +68,8 @@ const useStyles = makeStyles((theme) => ({
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color="primary">
-          {signup ? "Signup" : "Login"}
+          <Button onClick={() => handleSubmit()} color="primary">
+          {signUpForm ? "Signup" : "Login"}
           </Button>
         </DialogActions>
       </Dialog>
@@ -88,5 +91,7 @@ function mapStateToProps (state){
  
 }
 
+const hummingDialog = withRouter(HummingDialog)
 
-export default connect(mapStateToProps)(HummingDialog);
+
+export default connect(mapStateToProps, { signUp, login} )(hummingDialog);
