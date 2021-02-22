@@ -21,7 +21,7 @@ export const signUp = (...args) => {
 
     
     if (user.data.status === "success") {
-      dispatch({ type: "SIGN_UP", payload: user.data})
+      dispatch({ type: "SIGN_UP", payload: user.data.data})
       history.push("/home");
     }
   };
@@ -39,11 +39,30 @@ export const login = (...args) => {
           url: url,
           data: { username, password },
         });
-    
+        console.log(user.data.data);
         if (user.data.status === "success") {
-            dispatch({ type: "LOGIN", payload: user.data})
+            dispatch({ type: "LOGIN", payload: user.data.data})
             history.push("/home");  
-            console.log(user);
+            
         }
     }
+}
+
+export const logout = (history) => {
+  return async function(dispatch){
+    
+
+      const url = "http://localhost:5000/api/v1/user/logout";
+  
+      let response = await axios({
+        method: "GET",
+        url: url
+      });
+      console.log(response);
+      if (response.data.status === "success") {
+          dispatch({ type: "LOGOUT", payload: response})
+          history.push("/");  
+          
+      }
+  }
 }

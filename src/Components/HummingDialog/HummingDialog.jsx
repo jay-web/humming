@@ -17,6 +17,9 @@ import {withRouter } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
+  root:{
+    background: "blue"
+  },
   title: {
     textAlign: "center",
   },
@@ -28,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
  function HummingDialog(props) {
   const [open, setOpen] = React.useState(false);
   
-  const {text, signUpForm, history, signUp, login} = props;
+  const {text, signUpForm, history, signUp, login, handleSubmit} = props;
   const classes = useStyles();
 
   
@@ -41,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
    
   };
 
-  const handleSubmit = async () => {
+  const handleFormSubmit = async () => {
     setOpen(false);
     const {name, username, email, password, passwordConfirm } = props.formvalues;
 
@@ -56,22 +59,24 @@ const useStyles = makeStyles((theme) => ({
         {text}
       </Button>
      
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open}  onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title" className={classes.title}> Please fill up credentials </DialogTitle>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
         <DialogContent>
-        {/* <form > */}
+        
         <HummingTextField  signup={signUpForm} />
-        {/* </form> */}
+       
         </DialogContent>
         
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={() => handleSubmit()} color="primary">
+          <Button type="submit" color="primary">
           {signUpForm ? "Signup" : "Login"}
           </Button>
         </DialogActions>
+        </form>
       </Dialog>
       
       

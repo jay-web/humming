@@ -12,7 +12,8 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth']
+    whitelist: ['auth'],
+    
 }
 
 const mainReducer = combineReducers({
@@ -20,7 +21,7 @@ const mainReducer = combineReducers({
     auth: authReducer
 });
 
-const finalReducer = persistReducer( persistConfig, mainReducer);
+const finalReducer = persistReducer( persistConfig, mainReducer)
 
 
 export const store = createStore(finalReducer, {}, applyMiddleware(reduxThunk));

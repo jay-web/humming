@@ -1,14 +1,13 @@
 import { withStyles } from "@material-ui/core";
-import styles from "../../App.Style";
+import styles from "./landingPage.style";
 import HummingDialog from "../HummingDialog/HummingDialog";
-import { reduxForm } from "redux-form";
+
 import { withRouter } from "react-router-dom";
-import axios from "axios";
-import {signUp, login } from "../../Redux/actions/actions";
-import { connect } from "react-redux";
+import {reduxForm } from "redux-form";
+
 
 function LandingPage(props) {
-  const { classes} = props;
+  const { classes, handleSubmit} = props;
   console.log(props);
 
 
@@ -20,15 +19,20 @@ function LandingPage(props) {
         <div className={classes.buttonbox}>
         
 
-          <HummingDialog text="Sign up" signUpForm  />
-          <HummingDialog text="Login"  />
+          <HummingDialog text="Sign up" signUpForm  handleSubmit={handleSubmit}/>
+          <HummingDialog text="Login" handleSubmit={handleSubmit} />
         </div>
       </div>
     </div>
   );
 }
 
+const landingPage = reduxForm({
+  form:"signUpForm",
+  destroyOnUnmount: true
+})(LandingPage)
 
-export default withRouter(withStyles(styles)(LandingPage));
+export default withRouter(withStyles(styles)(landingPage));
 
 
+ 

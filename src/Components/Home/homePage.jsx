@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import HummingAppBar from "../HummingAppBar/hummingAppBar";
 
 class HomePage extends React.Component {
     render(){
@@ -7,8 +8,9 @@ class HomePage extends React.Component {
         // console.log(user.username)
         return (
             <div>
+                <HummingAppBar />
                 <h1>HOMEPAGE</h1>
-                <span>{user.username}</span>
+                <span>{user}</span>
             </div>
         )
     }
@@ -17,7 +19,7 @@ class HomePage extends React.Component {
 const mapStateToProps = (state) => {
     console.log(state);
     if(state.auth){
-        return { user: state.auth.data}
+        return { user: state.auth.username}
     }
     return {}
 }
