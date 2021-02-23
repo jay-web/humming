@@ -2,6 +2,7 @@ import {createStore, applyMiddleware, combineReducers } from "redux";
 import {reducer as formReducer} from 'redux-form';
 import reduxThunk from "redux-thunk";
 import authReducer from "./Reducers/authReducer";
+import userReducer from "./Reducers/userReducer";
 import {persistStore} from "redux-persist";
 
 // importing local storage
@@ -18,7 +19,9 @@ const persistConfig = {
 
 const mainReducer = combineReducers({
     form: formReducer,
-    auth: authReducer
+    auth: authReducer,
+    user: userReducer
+
 });
 
 const finalReducer = persistReducer( persistConfig, mainReducer)

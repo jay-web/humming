@@ -4,7 +4,8 @@ export default {
         flexDirection: "column",
         gap: "1rem",
         width: "30rem",
-        overflowX: "hidden"
+        overflowX: "hidden",
+        fontFamily: 'Akaya Telivigala, cursive'
     },
     "@media only screen and (max-width: 700px)":{
         root:{

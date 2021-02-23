@@ -27,7 +27,7 @@ import {withRouter} from "react-router-dom";
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  console.log(props);
+  // console.log(props);
   const { logout, user, history} = props;
 
   const handleProfileMenuOpen = (event) => {
@@ -63,7 +63,7 @@ import {withRouter} from "react-router-dom";
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem >{user}</MenuItem>
+      <MenuItem >{user.username}</MenuItem>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -182,7 +182,8 @@ import {withRouter} from "react-router-dom";
 }
 
 const mapPropsToState = (state) => {
-    return {user: state.auth.username}
+  
+    return {user: state.user.user}
 }
 
 const hummingAppBar = withRouter(HummingAppBar);

@@ -4,6 +4,7 @@ import HummingDialog from "../HummingDialog/HummingDialog";
 
 import { withRouter } from "react-router-dom";
 import {reduxForm } from "redux-form";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 
 function LandingPage(props) {
@@ -19,7 +20,7 @@ function LandingPage(props) {
         <div className={classes.buttonbox}>
         
 
-          <HummingDialog text="Sign up" signUpForm  handleSubmit={handleSubmit}/>
+          <HummingDialog text="Sign up" signUpForm  handleSubmit={handleSubmit} icon={AccountBoxIcon} />
           <HummingDialog text="Login" handleSubmit={handleSubmit} />
         </div>
       </div>

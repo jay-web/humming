@@ -12,16 +12,18 @@ import {signUp, login } from "../../Redux/actions/actions";
 
 import HummingTextField from "../Form/hummingTextField";
 import {withRouter } from "react-router-dom";
-
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 
 
 const useStyles = makeStyles((theme) => ({
   root:{
-    background: "blue"
+    background: "blue",
+    
   },
   title: {
     textAlign: "center",
+    fontFamily: 'Akaya Telivigala, cursive ',
   },
   root:{
     margin: "0px 1rem"
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
  function HummingDialog(props) {
   const [open, setOpen] = React.useState(false);
   
-  const {text, signUpForm, history, signUp, login, handleSubmit} = props;
+  const {text, signUpForm, history, signUp, login, handleSubmit, icon} = props;
   const classes = useStyles();
 
   
@@ -55,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   return (
     
     <div className={classes.root}>
-      <Button variant="contained"  onClick={handleClickOpen}>
+      <Button variant="contained"  onClick={handleClickOpen} startIcon={<AccountBoxIcon />}>
         {text}
       </Button>
      

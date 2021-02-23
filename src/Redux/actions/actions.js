@@ -22,7 +22,7 @@ export const signUp = (...args) => {
     
     if (user.data.status === "success") {
       dispatch({ type: "SIGN_UP", payload: user.data.data})
-      history.push("/home");
+      history.push("/");
     }
   };
 };
@@ -42,7 +42,7 @@ export const login = (...args) => {
         console.log(user.data.data);
         if (user.data.status === "success") {
             dispatch({ type: "LOGIN", payload: user.data.data})
-            history.push("/home");  
+            history.push("/");  
             
         }
     }
@@ -64,5 +64,19 @@ export const logout = (history) => {
           history.push("/");  
           
       }
+  }
+}
+
+export const fetchUser = () => {
+  return async function(dispatch){
+    let url = "http://localhost:5000/api/v1/user/currentUser";
+
+    let user = await axios({
+      method: "GET",
+      url:url,
+      headers: {'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzBmZWQ3NmNhMDQ4MTBmNzgwMmRjYiIsIm5hbWUiOiJodW1taW5nIiwiaWF0IjoxNjE0MDcxMDQxLCJleHAiOjE2MTQ2NzU4NDF9.z5ESak98cxXpDh9pm-lzCu_9SGLZct0otQ3nYYPG4T8'}
+    });
+    
+    dispatch({ type: "FETCH_USER", payload: user.data.data})
   }
 }
