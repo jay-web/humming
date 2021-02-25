@@ -5,14 +5,13 @@ import styles from "./App.Style";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import HomePage from "./Components/Home/homePage";
 import {connect } from "react-redux";
-import {fetchUser} from "./Redux/actions/actions";
+import {fetchUser} from "./Redux/actions/userActions";
 import  {Route, Switch } from "react-router-dom";
 import axios from "axios";
 
 function App(props) {
  
   const {user, fetchUser} = props;
-  console.log(user);
 
   useEffect(() => {
     fetchUser()

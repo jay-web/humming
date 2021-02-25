@@ -3,6 +3,7 @@ import {reducer as formReducer} from 'redux-form';
 import reduxThunk from "redux-thunk";
 import authReducer from "./Reducers/authReducer";
 import userReducer from "./Reducers/userReducer";
+import postReducer from "./Reducers/postReducer";
 // import {persistStore} from "redux-persist";
 
 // importing local storage
@@ -21,6 +22,7 @@ const mainReducer = combineReducers({
     form: formReducer,
     auth: authReducer,
     user: userReducer,
+    post: postReducer
     
 
 });

@@ -3,6 +3,10 @@ import { connect } from "react-redux";
 import HummingAppBar from "../HummingAppBar/hummingAppBar";
 import axios from "axios";
 import HummingPostForm from "../HummingPostForm/postForm";
+import { fetchPosts, createPosts, deletePosts } from "../../Redux/actions/postActions";
+import { withStyles, Avatar, Divider } from "@material-ui/core";
+import styles from "./homePage.style";
+import PostBox from "../PostBox/postBox";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -10,50 +14,64 @@ class HomePage extends React.Component {
     this.state = { posts: [] };
   }
 
-  fetchPosts = async () => {
-    let url = "http://localhost:5000/api/v1/post";
-
-    let response = await axios({
-      method: "GET",
-      url: url,
-      headers: {
-        authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzBmZWQ3NmNhMDQ4MTBmNzgwMmRjYiIsIm5hbWUiOiJodW1taW5nIiwiaWF0IjoxNjE0MDcxMDQxLCJleHAiOjE2MTQ2NzU4NDF9.z5ESak98cxXpDh9pm-lzCu_9SGLZct0otQ3nYYPG4T8",
-      },
-    });
-    let posts = response.data.data.posts;
-    this.setState({ ...posts, posts });
-  };
-
-
   componentDidMount() {
-    this.fetchPosts();
+    this.props.fetchPosts();
+    this.setState({ posts: this.props.posts });
   }
 
   renderPosts = () => {
-      return this.state.posts.map((post, idx) => {
-          return <h4 key={idx}>{post.content}</h4>
-      })
+    const { posts} = this.props;
+  
+    if (posts.length > 0) {
+      return posts.map((post, idx) => {
+        return <PostBox key={idx} post={post} deletePosts={this.onDeletePost} />;
+      });
+    }
+  };
+
+  onCreatePost = (value) => {
+    this.props.createPosts({ content: value });
+    // this.props.fetchPosts();
+  };
+
+  onDeletePost = (postId, userId) => {
+    const { deletePosts } = this.props;
+
+    deletePosts(postId, userId);
+    this.props.fetchPosts();
+
   }
 
   render() {
-    const { user } = this.props;
+    const { user, classes } = this.props;
     // console.log(user.username)
-    console.log(this.state.posts);
+
     return (
       <div>
         <HummingAppBar />
-        <h1>HOMEPAGE</h1>
-        <span>{user.username}</span>
-        {this.renderPosts()}
-        <HummingPostForm />
+        <div className={classes.root}>
+          <span className={classes.sidebar}></span>
+          <span className={classes.mainbar}>
+            <span className={classes.title}>
+              <Avatar src={user.photo[0]} />
+              <div style={{marginLeft: "1rem"}}>
+                <h3 style={{ marginBottom:"-1rem"}}> {user.username} </h3>
+                <h6>{user.email}</h6>
+              </div>
+              <HummingPostForm onSubmit={this.onCreatePost} className={classes.form}/>
+            </span>
+            <Divider />
+            <span className={classes.posts}>{this.renderPosts()}</span>
+          </span>
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return { user: state.user.user };
+  return { user: state.user.user, posts: state.post.posts };
 };
 
-export default connect(mapStateToProps)(HomePage);
+const homePage = withStyles(styles)(HomePage);
+export default connect(mapStateToProps, { fetchPosts, createPosts, deletePosts })(homePage);

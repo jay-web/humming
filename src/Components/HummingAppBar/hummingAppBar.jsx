@@ -17,7 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 import useStyles from "./appBar.sytle";
 import {connect } from "react-redux";
-import {logout} from "../../Redux/actions/actions";
+import {logout} from "../../Redux/actions/authActions";
 import {withRouter} from "react-router-dom";
 
  function HummingAppBar(props) {
@@ -63,7 +63,7 @@ import {withRouter} from "react-router-dom";
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem >{user.username}</MenuItem>
+      <MenuItem >{user && user.username}</MenuItem>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={handleLogout}>Logout</MenuItem>

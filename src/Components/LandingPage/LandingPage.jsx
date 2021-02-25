@@ -7,13 +7,14 @@ import {reduxForm } from "redux-form";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 
+
 function LandingPage(props) {
   const { classes, handleSubmit} = props;
-  console.log(props);
-
 
   return (
+    
     <div className={classes.landingPage}>
+
       <div>
         <h2 className={classes.h2}>Welcome in</h2>
         <h1 className={classes.h1}>Humming</h1>

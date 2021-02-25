@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import {connect } from "react-redux";
-import {signUp, login } from "../../Redux/actions/actions";
+import {signUp, login } from "../../Redux/actions/authActions";
 
 import HummingTextField from "../Form/hummingTextField";
 import {withRouter } from "react-router-dom";

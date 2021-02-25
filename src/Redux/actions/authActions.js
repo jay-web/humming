@@ -66,17 +66,3 @@ export const logout = (history) => {
       }
   }
 }
-
-export const fetchUser = () => {
-  return async function(dispatch){
-    let url = "http://localhost:5000/api/v1/user/currentUser";
-
-    let user = await axios({
-      method: "GET",
-      url:url,
-      headers: {'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzBmZWQ3NmNhMDQ4MTBmNzgwMmRjYiIsIm5hbWUiOiJodW1taW5nIiwiaWF0IjoxNjE0MDcxMDQxLCJleHAiOjE2MTQ2NzU4NDF9.z5ESak98cxXpDh9pm-lzCu_9SGLZct0otQ3nYYPG4T8'}
-    });
-    
-    dispatch({ type: "FETCH_USER", payload: user.data.data})
-  }
-}
