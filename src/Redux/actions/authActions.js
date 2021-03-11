@@ -19,10 +19,16 @@ export const signUp = (...args) => {
       data: newUser,
     });
 
+   
     
     if (user.data.status === "success") {
+      if(process.env.NODE_ENV === "development"){
+        localStorage.setItem("token", user.data.token);
+      }
+      
       dispatch({ type: "SIGN_UP", payload: user.data.data})
-      history.push("/");
+      history.push("/home");
+     
     }
   };
 };
@@ -39,11 +45,18 @@ export const login = (...args) => {
           url: url,
           data: { username, password },
         });
-        console.log(user.data.data);
+        console.log(user);
+       
+        
         if (user.data.status === "success") {
-            dispatch({ type: "LOGIN", payload: user.data.data})
-            history.push("/");  
-            
+          if(process.env.NODE_ENV === "development"){
+            localStorage.setItem("token", user.data.token);
+          }
+           dispatch({ type: "LOGIN", payload: user.data.data});
+           history.push("/home"); 
+           
+        }else{
+          history.push("/");
         }
     }
 }
@@ -60,8 +73,15 @@ export const logout = (history) => {
       });
       console.log(response);
       if (response.data.status === "success") {
-          dispatch({ type: "LOGOUT", payload: response})
-          history.push("/");  
+        if(process.env.NODE_ENV === "development"){
+          localStorage.setItem("token", "");
+        }
+        
+          dispatch({ type: "LOGOUT", payload: response});
+          history.push("/"); 
+           
+          
+          
           
       }
   }

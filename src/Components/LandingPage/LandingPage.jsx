@@ -1,6 +1,6 @@
 import { withStyles } from "@material-ui/core";
 import styles from "./landingPage.style";
-import HummingDialog from "../HummingDialog/HummingDialog";
+import HummingDialog from "../HummingDialog/authDialog";
 
 import { withRouter } from "react-router-dom";
 import {reduxForm } from "redux-form";
