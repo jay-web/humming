@@ -1,7 +1,7 @@
 # Humming
 Humming is the blogging project in which most the instructing advance node with react has been implemented.
 
-Some node library which I tried to implement init are ( continuing to integrate more ):
+Some library which I tried to implement init are ( continuing to integrate more ):
 
 * React
 * Passport
