@@ -9,6 +9,9 @@ Some library which I tried to implement init are ( continuing to integrate more 
 * Redis
 * Express
 * Mongoose
+* Redis
+* Puppeteer
+* Jest
 * More will be added here as per requirement
 
 
